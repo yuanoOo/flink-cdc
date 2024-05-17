@@ -19,6 +19,7 @@ on:
     branches:
       - master
       - release-*
+      - flink*
     paths-ignore:
       - 'docs/**'
       - 'README.md'
