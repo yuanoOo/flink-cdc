@@ -184,6 +184,7 @@ public class OceanBaseE2eITCase extends PipelineTestEnvironment {
                     "UPDATE products SET description='new water resistent white wind breaker', weight='0.5' WHERE id=110;");
             stat.execute("UPDATE products SET weight='5.17' WHERE id=111;");
             stat.execute("DELETE FROM products WHERE id=111;");
+            stat.execute("ALTER TABLE products RENAME COLUMN new_col TO rename_col;");
         } catch (SQLException e) {
             LOG.error("Update table for CDC failed.", e);
             throw e;
@@ -222,7 +223,7 @@ public class OceanBaseE2eITCase extends PipelineTestEnvironment {
                 Thread.sleep(100);
             }
         }
-        Assert.assertEquals(tableRowsCount, expectedCount);
+        Assert.assertEquals(expectedCount, tableRowsCount);
     }
 
     private List<String> queryTable(String tableName, boolean isMySQL) throws SQLException {
