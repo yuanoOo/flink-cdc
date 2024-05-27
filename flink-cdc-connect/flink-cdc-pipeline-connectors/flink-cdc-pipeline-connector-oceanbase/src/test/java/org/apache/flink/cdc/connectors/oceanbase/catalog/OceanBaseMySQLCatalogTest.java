@@ -23,16 +23,16 @@ import org.apache.flink.shaded.guava31.com.google.common.collect.ImmutableMap;
 import org.apache.flink.shaded.guava31.com.google.common.collect.Lists;
 
 import com.oceanbase.connector.flink.OceanBaseConnectorOptions;
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.List;
 
 /** Tests for {@link OceanBaseMySQLCatalogTest}. */
-// @Ignore
 public class OceanBaseMySQLCatalogTest extends OceanBaseTestBase {
 
-    private static final ImmutableMap<String, String> configMap =
+    private final ImmutableMap<String, String> configMap =
             ImmutableMap.<String, String>builder()
                     .put("url", OB_SERVER.getJdbcUrl())
                     .put("username", OB_SERVER.getUsername())
