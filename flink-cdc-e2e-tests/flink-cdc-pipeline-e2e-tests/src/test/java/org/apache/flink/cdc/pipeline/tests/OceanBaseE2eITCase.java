@@ -310,4 +310,26 @@ public class OceanBaseE2eITCase extends PipelineTestEnvironment {
             throw new RuntimeException("Failed to drop database", e);
         }
     }
+
+    private int getTableRowsCount(
+            SupplierWithException<Connection, SQLException> connectionSupplier, String tableName) {
+        return (int)
+                query(
+                        connectionSupplier,
+                        "SELECT COUNT(1) FROM " + tableName,
+                        rs -> rs.next() ? rs.getInt(1) : 0);
+    }
+
+    private Object query(
+            SupplierWithException<Connection, SQLException> connectionSupplier,
+            String sql,
+            FunctionWithException<ResultSet, Object, SQLException> resultSetConsumer) {
+        try (Connection connection = connectionSupplier.get();
+                Statement statement = connection.createStatement()) {
+            ResultSet rs = statement.executeQuery(sql);
+            return resultSetConsumer.apply(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to execute sql: " + sql, e);
+        }
+    }
 }
