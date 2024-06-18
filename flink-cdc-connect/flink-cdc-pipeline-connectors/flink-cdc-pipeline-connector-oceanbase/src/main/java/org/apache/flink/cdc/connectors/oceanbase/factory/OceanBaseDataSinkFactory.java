@@ -55,11 +55,12 @@ public class OceanBaseDataSinkFactory implements DataSinkFactory {
                 PIPELINE_LOCAL_TIME_ZONE.defaultValue().equals(zoneStr)
                         ? ZoneId.systemDefault()
                         : ZoneId.of(zoneStr);
-        return new OceanBaseDataSink(connectorOptions, config, zoneId);
+        return new OceanBaseDataSink(connectorOptions, zoneId);
     }
 
     public Map<String, String> buildOceanBaseOptions(Configuration config) {
         Optional<String> optional = config.getOptional(OceanBaseDataSinkOptions.PASSWORD);
+        // Avoid NullPointerException when PASSWORD is empty.
         config.remove(OceanBaseDataSinkOptions.PASSWORD);
         Map<String, String> configMap = config.toMap();
         configMap.put(OceanBaseDataSinkOptions.PASSWORD.key(), optional.orElse(StringUtils.EMPTY));

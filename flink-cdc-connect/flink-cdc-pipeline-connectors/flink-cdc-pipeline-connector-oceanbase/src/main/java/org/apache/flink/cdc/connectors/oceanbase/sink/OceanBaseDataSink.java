@@ -17,7 +17,6 @@
 
 package org.apache.flink.cdc.connectors.oceanbase.sink;
 
-import org.apache.flink.cdc.common.configuration.Configuration;
 import org.apache.flink.cdc.common.sink.DataSink;
 import org.apache.flink.cdc.common.sink.EventSinkProvider;
 import org.apache.flink.cdc.common.sink.FlinkSinkProvider;
@@ -37,14 +36,10 @@ public class OceanBaseDataSink implements DataSink, Serializable {
 
     private final OceanBaseConnectorOptions connectorOptions;
 
-    private final Configuration config;
-
     private final ZoneId zoneId;
 
-    public OceanBaseDataSink(
-            OceanBaseConnectorOptions options, Configuration config, ZoneId zoneId) {
+    public OceanBaseDataSink(OceanBaseConnectorOptions options, ZoneId zoneId) {
         this.connectorOptions = options;
-        this.config = config;
         this.zoneId = zoneId;
     }
 
