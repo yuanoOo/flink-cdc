@@ -34,7 +34,7 @@ public class OptionUtils {
 
     public static void printOptions(String identifier, Map<String, String> config) {
         Map<String, String> hideMap = ConfigurationUtils.hideSensitiveValues(config);
-        LOG.info("Print {} connector configuration:", identifier);
+        LOG.info("Print {} connector configurations:", identifier);
         for (String key : hideMap.keySet()) {
             LOG.info("{} = {}", key, hideMap.get(key));
         }
