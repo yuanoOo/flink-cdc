@@ -43,7 +43,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
-/** End-to-end tests for mysql cdc pipeline job. */
+/** End-to-end tests for mysql cdc pipeline job . */
 @RunWith(Parameterized.class)
 public class MysqlE2eITCase extends PipelineTestEnvironment {
     private static final Logger LOG = LoggerFactory.getLogger(MysqlE2eITCase.class);
