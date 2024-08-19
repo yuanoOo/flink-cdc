@@ -46,10 +46,10 @@ public class OceanBaseDataSinkFactory implements DataSinkFactory {
     @Override
     public DataSink createDataSink(Context context) {
         Configuration config = context.getFactoryConfiguration();
-        Map<String, String> configMap = buildOceanBaseOptions(config);
-        OptionUtils.printOptions(IDENTIFIER, configMap);
+        //        Map<String, String> configMap = buildOceanBaseOptions(config);
+        OptionUtils.printOptions(IDENTIFIER, config.toMap());
 
-        OceanBaseConnectorOptions connectorOptions = new OceanBaseConnectorOptions(configMap);
+        OceanBaseConnectorOptions connectorOptions = new OceanBaseConnectorOptions(config.toMap());
         String zoneStr = context.getPipelineConfiguration().get(PIPELINE_LOCAL_TIME_ZONE);
         ZoneId zoneId =
                 PIPELINE_LOCAL_TIME_ZONE.defaultValue().equals(zoneStr)

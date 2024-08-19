@@ -94,11 +94,6 @@ public class OceanBaseE2eITCase extends PipelineTestEnvironment {
                     .withNetwork(NETWORK)
                     .withNetworkAliases("oceanbase")
                     .withLogConsumer(new Slf4jLogConsumer(LOG));
-    //            new OceanBaseContainer(OceanBaseContainer.DOCKER_IMAGE_NAME + ":" + IMAGE_TAG)
-    //                    .withNetwork(NETWORK)
-    //                    .withNetworkAliases("oceanbase")
-    //                    .withSysPassword("123456")
-    //                    .withLogConsumer(new Slf4jLogConsumer(LOG));
 
     @Before
     public void before() throws Exception {
