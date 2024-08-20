@@ -32,7 +32,7 @@ public class OceanBaseTestUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(OceanBaseTestUtils.class);
 
-    private static final String LATEST_VERSION = "4.2.1-lts";
+    private static final String LATEST_VERSION = "latest";
     private static final String CDC_TEST_OB_VERSION = "4.2.1.6-106000012024042515";
 
     private static final String SYS_PASSWORD = "123456";
