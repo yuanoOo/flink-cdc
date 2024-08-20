@@ -27,12 +27,10 @@ import org.apache.flink.cdc.connectors.oceanbase.sink.OceanBaseDataSinkOptions;
 import org.apache.flink.cdc.connectors.oceanbase.utils.OptionUtils;
 
 import com.oceanbase.connector.flink.OceanBaseConnectorOptions;
-import org.apache.commons.lang3.StringUtils;
 
 import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 import static org.apache.flink.cdc.common.pipeline.PipelineOptions.PIPELINE_LOCAL_TIME_ZONE;
@@ -46,25 +44,16 @@ public class OceanBaseDataSinkFactory implements DataSinkFactory {
     @Override
     public DataSink createDataSink(Context context) {
         Configuration config = context.getFactoryConfiguration();
-        //        Map<String, String> configMap = buildOceanBaseOptions(config);
-        OptionUtils.printOptions(IDENTIFIER, config.toMap());
+        Map<String, String> configMap = config.toMap();
+        OptionUtils.printOptions(IDENTIFIER, configMap);
 
-        OceanBaseConnectorOptions connectorOptions = new OceanBaseConnectorOptions(config.toMap());
+        OceanBaseConnectorOptions connectorOptions = new OceanBaseConnectorOptions(configMap);
         String zoneStr = context.getPipelineConfiguration().get(PIPELINE_LOCAL_TIME_ZONE);
         ZoneId zoneId =
                 PIPELINE_LOCAL_TIME_ZONE.defaultValue().equals(zoneStr)
                         ? ZoneId.systemDefault()
                         : ZoneId.of(zoneStr);
         return new OceanBaseDataSink(connectorOptions, zoneId);
-    }
-
-    public Map<String, String> buildOceanBaseOptions(Configuration config) {
-        Optional<String> optional = config.getOptional(OceanBaseDataSinkOptions.PASSWORD);
-        // Avoid NullPointerException when PASSWORD is empty.
-        config.remove(OceanBaseDataSinkOptions.PASSWORD);
-        Map<String, String> configMap = config.toMap();
-        configMap.put(OceanBaseDataSinkOptions.PASSWORD.key(), optional.orElse(StringUtils.EMPTY));
-        return configMap;
     }
 
     @Override
