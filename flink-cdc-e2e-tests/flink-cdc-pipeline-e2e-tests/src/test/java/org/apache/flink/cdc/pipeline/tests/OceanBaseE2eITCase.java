@@ -93,6 +93,7 @@ public class OceanBaseE2eITCase extends PipelineTestEnvironment {
             OceanBaseTestUtils.createOceanBaseContainerForJdbc()
                     .withNetwork(NETWORK)
                     .withNetworkAliases("oceanbase")
+                    .withStartupTimeout(Duration.ofMinutes(5))
                     .withLogConsumer(new Slf4jLogConsumer(LOG));
 
     @Before
