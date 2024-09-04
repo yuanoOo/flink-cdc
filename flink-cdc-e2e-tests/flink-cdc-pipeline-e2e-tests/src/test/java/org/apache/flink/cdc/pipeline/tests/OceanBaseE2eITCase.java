@@ -54,7 +54,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-/** OceanBase flink cdc pipeline connector sink integrate test. */
+/** OceanBase flink cdc pipeline connector sink integrate tests. */
 @RunWith(Parameterized.class)
 public class OceanBaseE2eITCase extends PipelineTestEnvironment {
     private static final Logger LOG = LoggerFactory.getLogger(OceanBaseE2eITCase.class);
