@@ -344,7 +344,7 @@ public class OceanBaseFailoverITCase extends OceanBaseSourceTestBase {
                                         ? ""
                                         : ", primary key (id) not enforced")
                                 + ") WITH ("
-                                + " 'connector' = 'mysql-cdc',"
+                                + " 'connector' = 'oceanbase-cdc',"
                                 + " 'scan.incremental.snapshot.enabled' = 'true',"
                                 + " 'hostname' = '%s',"
                                 + " 'port' = '%s',"
@@ -435,11 +435,12 @@ public class OceanBaseFailoverITCase extends OceanBaseSourceTestBase {
             expectedSnapshotData.addAll(Arrays.asList(snapshotForSingleTable));
         }
 
-        CloseableIterator<Row> iterator = tableResult.collect();
         JobID jobId = tableResult.getJobClient().get().getJobID();
 
-        // trigger failover after some snapshot splits read finished
-        if (failoverPhase == FailoverPhase.SNAPSHOT && iterator.hasNext()) {
+        // Trigger failover before collecting rows to avoid mixing pre-failover buffered rows with
+        // replayed snapshot rows after recovery.
+        if (failoverPhase == FailoverPhase.SNAPSHOT) {
+            waitUntilJobRunning(tableResult);
             triggerFailover(
                     failoverType,
                     jobId,
@@ -447,6 +448,7 @@ public class OceanBaseFailoverITCase extends OceanBaseSourceTestBase {
                     () -> sleepMs(100));
         }
 
+        CloseableIterator<Row> iterator = tableResult.collect();
         assertEqualsInAnyOrder(
                 expectedSnapshotData, fetchRows(iterator, expectedSnapshotData.size()));
     }
