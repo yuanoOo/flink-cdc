@@ -344,7 +344,7 @@ public class OceanBaseFailoverITCase extends OceanBaseSourceTestBase {
                                         ? ""
                                         : ", primary key (id) not enforced")
                                 + ") WITH ("
-                                + " 'connector' = 'mysql-cdc',"
+                                + " 'connector' = 'oceanbase-cdc',"
                                 + " 'scan.incremental.snapshot.enabled' = 'true',"
                                 + " 'hostname' = '%s',"
                                 + " 'port' = '%s',"
